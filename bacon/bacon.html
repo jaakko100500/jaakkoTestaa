@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bacon.js/0.3.15/Bacon.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script>
+        $(document).ready(function() {
+            var eventToLabel = function(event) {
+                return $('<label>' + event.clientX + '</label>');
+            }
+
+            var throttledMouseEventToLabelStream = $('html').asEventStream('mousemove').map(eventToLabel).throttle(150);
+
+            throttledMouseEventToLabelStream.delay(1000).onValue(function($element) {
+                $element.remove();
+            });
+
+            var $container = $('#container');
+            throttledMouseEventToLabelStream.onValue(function($element) {
+                $container.append($element);
+                $element.animate({
+                    opacity: 0
+                }, 1000);
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Liikuta hiirtä</h1>
+    <div id="container"></div>
+</body>
+
+</html>

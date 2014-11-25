@@ -1,0 +1,16 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="list-controller.js"></script>
+  </head>
+  <body>
+    <div ng-controller="TodoController">  
+      <div ng-repeat="item in items">
+        <span>{{item.text}}</span>
+      </div>
+      <button ng-click=addItem()>Add</button>
+      <button ng-click=removeItem()>Remove</button>
+    </div>
+  </body>
+</html>
